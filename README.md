@@ -1,0 +1,1 @@
+# custom-email-event-adaptor
