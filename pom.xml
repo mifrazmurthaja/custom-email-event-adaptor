@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.wso2.carbon.analytics-common</groupId>
+        <artifactId>event-publisher</artifactId>
+        <version>5.2.24</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>org.wso2.custom.event.output.adapter.email</artifactId>
+    <version>1.0</version>
+    <packaging>bundle</packaging>
+    <name>A Custom Event Output Email adapter Module</name>
+    <description>A custom email provides the back-end functionality of email event adapter
+    </description>
+    <url>http://wso2.org</url>
+
+    <properties>
+        <import.osgi.framework.version.range>[1.9,2.0)</import.osgi.framework.version.range>
+        <import.osgi.service.component.version.range>[1.2.0,2.0)</import.osgi.service.component.version.range>
+        <org.wso2.carbon.analytics-common.version>5.2.24</org.wso2.carbon.analytics-common.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wso2.carbon.analytics-common</groupId>
+            <artifactId>org.wso2.carbon.event.output.adapter.email</artifactId>
+            <version>${org.wso2.carbon.analytics-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.analytics-common</groupId>
+            <artifactId>org.wso2.carbon.event.output.adapter.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2.transport</groupId>
+            <artifactId>axis2-transport-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.user.core</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.2</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+                <version>${maven.scr.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Private-Package>
+                            org.wso2.custom.event.output.adapter.email.internal,
+                            org.wso2.custom.event.output.adapter.email.internal.*
+                        </Private-Package>
+                        <Export-Package>
+                            !org.wso2.custom.event.output.adapter.email.internal,
+                            !org.wso2.custom.event.output.adapter.email.internal.*,
+                            org.wso2.custom.event.output.adapter.email.*
+                        </Export-Package>
+                        <Import-Package>
+                            org.osgi.framework; version="${import.osgi.framework.version.range}",
+                            org.osgi.service.component; version="${import.osgi.service.component.version.range}",
+                            javax.xml.namespace; version=0.0.0,
+                            *;resolution:=optional
+                        </Import-Package>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
